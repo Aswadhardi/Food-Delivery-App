@@ -1,69 +1,68 @@
-// ignore_for_file: unused_field, unnecessary_this
-
 class Product {
-  int? _total;
-  int? _skip;
-  int? _limit;
+  int? _totalSize;
+  int? _typeId;
+  int? _offset;
   late List<ProductModel> _products;
   List<ProductModel> get products => _products;
 
-  Product({required products, required total, required skip, required limit}) {
+  Product(
+      {required totalSize,
+      required typeId,
+      required offset,
+      required products}) {
+    this._totalSize = totalSize;
+    this._typeId = typeId;
+    this._offset = offset;
     this._products = products;
-    this._limit = limit;
-    this._skip = skip;
-    this._total = total;
   }
 
   Product.fromJson(Map<String, dynamic> json) {
+    _totalSize = json['total_size'];
+    _typeId = json['type_id'];
+    _offset = json['offset'];
     if (json['products'] != null) {
       _products = <ProductModel>[];
       json['products'].forEach((v) {
         _products.add(ProductModel.fromJson(v));
       });
     }
-    _total = json['total'];
-    _skip = json['skip'];
-    _limit = json['limit'];
   }
 }
 
 class ProductModel {
   int? id;
-  String? title;
+  String? name;
   String? description;
   int? price;
-  double? discountPercentage;
-  double? rating;
-  int? stock;
-  String? brand;
-  String? category;
-  String? thumbnail;
-  List<String>? images;
+  int? stars;
+  String? img;
+  String? location;
+  String? createdAt;
+  String? updatedAt;
+  int? typeId;
 
   ProductModel(
       {this.id,
-      this.title,
+      this.name,
       this.description,
       this.price,
-      this.discountPercentage,
-      this.rating,
-      this.stock,
-      this.brand,
-      this.category,
-      this.thumbnail,
-      this.images});
+      this.stars,
+      this.img,
+      this.location,
+      this.createdAt,
+      this.updatedAt,
+      this.typeId});
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    title = json['title'];
+    name = json['name'];
     description = json['description'];
     price = json['price'];
-    discountPercentage = json['discountPercentage'];
-    rating = json['rating'];
-    stock = json['stock'];
-    brand = json['brand'];
-    category = json['category'];
-    thumbnail = json['thumbnail'];
-    images = json['images'].cast<String>();
+    stars = json['stars'];
+    img = json['img'];
+    location = json['location'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    typeId = json['type_id'];
   }
 }
