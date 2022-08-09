@@ -36,8 +36,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const Home(),
-      initialRoute: RoutesHelper.initilal,
-      getPages: RoutesHelper.routes,
+      initialRoute: RouteHelper.initilal,
+      getPages: RouteHelper.routes,
     );
   }
 }

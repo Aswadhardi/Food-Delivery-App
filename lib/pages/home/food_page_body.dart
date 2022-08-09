@@ -11,6 +11,7 @@ import 'package:food_delivery/utils/dimension.dart';
 import 'package:food_delivery/widgets/app_column.dart';
 import 'package:food_delivery/widgets/big_text.dart';
 import 'package:food_delivery/widgets/small_text.dart';
+import '../../routes/route_helper.dart';
 import '../../widgets/icon_and_text.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:get/get.dart';
@@ -51,20 +52,15 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         // slider
         GetBuilder<PopularProductController>(builder: (popularProducts) {
           return popularProducts.isLoaded
-              ? GestureDetector(
-                  onTap: () {
-                    Get.to(() => const PopularFoodDetail());
-                  },
-                  child: Container(
-                    height: Dimensions.pageView,
-                    child: PageView.builder(
-                        controller: pageController,
-                        itemCount: popularProducts.popularProductList.length,
-                        itemBuilder: (BuildContext context, position) {
-                          return _buildPageItem(position,
-                              popularProducts.popularProductList[position]);
-                        }),
-                  ),
+              ? Container(
+                  height: Dimensions.pageView,
+                  child: PageView.builder(
+                      controller: pageController,
+                      itemCount: popularProducts.popularProductList.length,
+                      itemBuilder: (BuildContext context, position) {
+                        return _buildPageItem(position,
+                            popularProducts.popularProductList[position]);
+                      }),
                 )
               : const CircularProgressIndicator(
                   color: AppColor.mainColor,
@@ -114,6 +110,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             ],
           ),
         ),
+
+        //Recommended Food
         GetBuilder<RecommendedProductController>(builder: (recommendedProduct) {
           return recommendedProduct.isLoaded
               ? ListView.builder(
@@ -123,7 +121,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        Get.to(() => const RecommendedFoodDetail());
+                        Get.toNamed(RouteHelper.getRecommendedFood(index));
                       },
                       child: Container(
                         margin: EdgeInsets.only(
@@ -245,23 +243,29 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       transform: matrix,
       child: Stack(
         children: [
-          Container(
-            margin: EdgeInsets.only(
-                left: Dimensions.width5,
-                right: Dimensions.width5,
-                top: Dimensions.height15),
-            height: Dimensions.pageViewContainer,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.radius30),
-                color: position.isEven
-                    ? const Color(0xFF69c5df)
-                    : const Color(0xFF632acf),
-                image: DecorationImage(
-                  image: NetworkImage(AppConstants.BASE_URL +
-                      "/uploads/" +
-                      popularProduct.img!),
-                  fit: BoxFit.cover,
-                )),
+          GestureDetector(
+
+            onTap: () {
+              Get.toNamed(RouteHelper.getPopularFood(position));
+            },
+            child: Container(
+              margin: EdgeInsets.only(
+                  left: Dimensions.width5,
+                  right: Dimensions.width5,
+                  top: Dimensions.height15),
+              height: Dimensions.pageViewContainer,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimensions.radius30),
+                  color: position.isEven
+                      ? const Color(0xFF69c5df)
+                      : const Color(0xFF632acf),
+                  image: DecorationImage(
+                    image: NetworkImage(AppConstants.BASE_URL +
+                        "/uploads/" +
+                        popularProduct.img!),
+                    fit: BoxFit.cover,
+                  )),
+            ),
           ),
           Align(
             alignment: Alignment.bottomCenter,

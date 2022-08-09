@@ -1,28 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/controllers/recommended_product_controller.dart';
+import 'package:food_delivery/data/repository/recommended_product_repo.dart';
+import 'package:food_delivery/routes/route_helper.dart';
+import 'package:food_delivery/utils/app_constants.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimension.dart';
 import 'package:food_delivery/widgets/big_text.dart';
 import 'package:food_delivery/widgets/expandable_text_widgets.dart';
 import '../../widgets/app_icon.dart';
+import 'package:get/get.dart';
 
 class RecommendedFoodDetail extends StatelessWidget {
-  const RecommendedFoodDetail({Key? key}) : super(key: key);
+  final int pageId;
+  const RecommendedFoodDetail({
+    Key? key,
+    required this.pageId,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product =
+        Get.find<RecommendedProductController>().recommendedProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             toolbarHeight: 80,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                AppIcon(
-                  icon: Icons.clear,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed(RouteHelper.getInitial());
+                  },
+                  child: const AppIcon(
+                    icon: Icons.clear,
+                  ),
                 ),
-                AppIcon(
+                const AppIcon(
                   icon: Icons.shopping_cart,
                 )
               ],
@@ -40,17 +57,19 @@ class RecommendedFoodDetail extends StatelessWidget {
                           topRight: Radius.circular(Dimensions.radius20))),
                   child: Center(
                     child: BigText(
-                      text: 'American dish',
+                      text: product.name!,
                       size: Dimensions.font26,
                     ),
                   ),
                 ),
                 preferredSize: const Size.fromHeight(20)),
             backgroundColor: AppColor.yellowColor,
-            flexibleSpace: const FlexibleSpaceBar(
-              background: Image(
-                  image: AssetImage('assets/images/food1.jpg'),
-                  fit: BoxFit.cover),
+            flexibleSpace: FlexibleSpaceBar(
+              background: Image.network(
+                AppConstants.BASE_URL + AppConstants.UPLOAD_URL + product.img!,
+                fit: BoxFit.cover,
+                width: double.maxFinite,
+              ),
             ),
           ),
           SliverToBoxAdapter(
@@ -59,50 +78,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(
                       left: Dimensions.width20, right: Dimensions.width20),
-                  child: const ExpandableTextWidgets(text: '''
- Fried chicken has been described as being "crunchy" and "juicy",
-  as chicken has been described as being "crunchy" and "juicy", 
-   chicken has Fried chicken has been described as being "crunchy" and "juicy", 
-   as chicken has been described as being "crunchy" and "juicy", as chicken has Fried chicken
-    has been described as being "crunchy" and "juicy", as chicken has been described as being
-     "crunchy" and "juicy", as chicken has Fried chicken has been described as being "crunchy"
-      and "juicy", as chicken has been described as being "crunchy" and "juicy", as chicken has Fried 
-      chicken has been described as being "crunchy" and "juicy", as chicken has been described as being 
-      "crunchy" and "juicy", as chicken has Fried chicken hashed chicken has been described as being "crunchy" and "juicy",
-  as chicken has been described as being "crunchy" and "juicy",
-   chicken has Fried chicken has been described as being "crunchy" and "juicy",
-   as chicken has been described as being "crunchy" and "juicy", as chicken has Fried chicken
-    has been described as being "crunchy" and "juicy", as chicken has been described as being
-     "crunchy" and "juicy", as chicken has Fried chicken has been described as being "crunchy"
-      and "juicy", as chicken has been described as being "crunchy" and "juicy", as chicken has Fried 
-      chicken has been described as being "crunchy" and "juicy", as chicken has been described as being 
-      "crunchy" and "juicy", as chicken has s chicken has been described as being "crunchy" and "juicy", as chicken has Fried 
-      chicken has been described as being "crunchy" and "juicy", as chicken has been described as being 
-      "crunchy" and "juicy", as chicken has Fried chicken hashed chicken has been described as being "crunchy" and "juicy",
-  as chicken has been described as being "crunchy" and "juicy", 
-   chicken has Fried chicken has been described as being "crunchy" and "juicy", 
-   as chicken has been described as being "crunchy" and "juicy", as chicken has Fried chicken
-    has been described as being "crunchy" and "juicy", as wchicken has been described as being
-     "crunchy" and "juicy", as wchicken has Fried chickcken has s chicken has been described as being "crunchy" and "juicy", as chicken has Fried 
-      chicken has been described as being "crunchy" and "juicy", as wchicken has been described as being 
-      "crunchy" and "juicy", as wchicken has Fried chicken hased chicken has been described as being "crunchy" and "juicy",
-  as wchicken has been described as being "crunchy" and "juicy", 
-   chicken has Fried chicken has been described as being "crunchy" and "juicy", 
-   as wchicken has been described as being "crunchy" and "juicy", as chicken has Fried chicken
-    has been described as being "crunchy" and "juicy", as chicken has been described as being
-     "crunchy" and "juicy", as chicken has Fried chicken has s chicken has been described as being "crunchy" and "juicy", as chicken has Fried 
-      chicken has been described as being "crunchy" and "juicy", as chicken has been described as being 
-      "crunchy" and "juicy", as chicken has Fried chicken hashed chicken has been described as being "crunchy" and "juicy",
-  as chicken has been described as being "crunchy" and "juicy", 
-   chicken has Fried chicken has been described as being "crunchy" and "juicy", 
-   as chicken has been described as being "crunchy" and "juicy", as chicken has Fried chicken
-    has been described as being "crunchy" and "juicy", as chicken has been described as being
-     "crunchy" and "juicy", as chicken has Fried chicken has been described as being "crunchy"
-      and "juicy", as chicken has been described as being "crunchy" and "juicy", as chicken has Fried 
-      chicken has been described as being "crunchy" and "juicy", as chicken has been described as being 
-      "crunchy" and "juicy", as chicken has Fried chicken has been described as being "crunchy" and "juicy",
-       as chicken has been described as being "crunchy" and "juicy", as chicken has Fried chicken has been described
-        as being "crunchy" and "juicy", as chicken has been described as being "crunchy" and "juicy", as chicken has'''),
+                  child: ExpandableTextWidgets(text: product.description!),
                 ),
               ],
             ),
@@ -114,8 +90,8 @@ class RecommendedFoodDetail extends StatelessWidget {
         children: [
           Container(
             padding: EdgeInsets.only(
-                left: Dimensions.width20*2.5,
-                right: Dimensions.width20*2.5,
+                left: Dimensions.width20 * 2.5,
+                right: Dimensions.width20 * 2.5,
                 top: Dimensions.height10,
                 bottom: Dimensions.height10),
             child: Row(
@@ -127,14 +103,18 @@ class RecommendedFoodDetail extends StatelessWidget {
                   iconColor: Colors.white,
                 ),
                 BigText(
-                  text: "\$12.55 "+" X "+" 0 ",
+                  text: "\$ ${product.price}   X  0 ",
                   color: AppColor.mainBlackColor,
                   size: Dimensions.font26,
                 ),
-                const AppIcon(
-                    icon: Icons.add,
-                    backgroundColor: AppColor.mainColor,
-                    iconColor: Colors.white),
+                 GestureDetector(
+                   onTap: ()=>{
+                   },
+                   child: AppIcon(
+                      icon: Icons.add,
+                      backgroundColor: AppColor.mainColor,
+                      iconColor: Colors.white),
+                 ),
               ],
             ),
           ),
