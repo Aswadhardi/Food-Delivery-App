@@ -8,7 +8,7 @@ class CartController extends GetxController{
 
   CartController({required this.cartRepo});
 
-  Map<int ,CartModel> _items={};
+  final Map<int ,CartModel> _items={};
   void addItems(ProductModel product,int quantity){
 
     _items.putIfAbsent(product.id!, ()=> CartModel(
