@@ -10,6 +10,7 @@ class CartController extends GetxController {
   CartController({required this.cartRepo});
 
   final Map<int, CartModel> _items = {};
+  Map<int, CartModel> get items => _items;
   void addItems(ProductModel product, int quantity) {
     if (_items.containsKey(product.id)) {
       _items.update(product.id!, (value) {
@@ -37,5 +38,24 @@ class CartController extends GetxController {
         },
       );
     }
+  }
+
+  bool exitsInCart(ProductModel product) {
+    if (_items.containsKey(product.id)) {
+      return true;
+    }
+    return false;
+  }
+
+  int getQuantity(ProductModel product) {
+    var quantity=0;
+    if (_items.containsKey(product.id)) {
+      _items.forEach((key, value) {
+        if (key == product.id) {
+          quantity = value.quantity!;
+        }
+      });
+    }
+    return quantity;
   }
 }
