@@ -39,14 +39,14 @@ class PopularProductController extends GetxController {
 
   void setQuantity(bool isIncrement) {
     if (isIncrement) {
-      _quantity = checkedQuantity(_quantity + 1);
+      _quantity = checkQuantity(_quantity + 1);
     } else {
-      _quantity = checkedQuantity(_quantity - 1);
+      _quantity = checkQuantity(_quantity - 1);
     }
     update();
   }
 
-  int checkedQuantity(quantity) {
+  int checkQuantity(quantity) {
     if ((_inCartItems+quantity) < 0) {
       Get.snackbar('Item count', "You can't reduce more",
           backgroundColor: AppColor.mainColor, colorText: Colors.white);
@@ -60,7 +60,8 @@ class PopularProductController extends GetxController {
     }
   }
 
-  void initializeProduct(ProductModel product, CartController cart) {
+
+  void initProduct(ProductModel product, CartController cart) {
     _quantity = 0;
     _inCartItems = 0;
     _cart = cart;
@@ -73,9 +74,9 @@ class PopularProductController extends GetxController {
     print('the quantity in the cart is '+ _inCartItems.toString());
   }
 
-  void addItems(ProductModel product) {
+  void addItem(ProductModel product) {
     if (quantity > 0) {
-      _cart.addItems(product, _quantity);
+      _cart.addItem(product, _quantity);
       _quantity = 0;
       _cart.items.forEach((key, value) {
         return print(

@@ -19,7 +19,7 @@ class PopularFoodDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     var product =
         Get.find<PopularProductController>().popularProductList[pageId];
-    Get.find<PopularProductController>().initializeProduct(product,Get.find<CartController>());
+    Get.find<PopularProductController>().initProduct(product,Get.find<CartController>());
 
     print("page is  id " + pageId.toString());
     print('product name is ' + product.name.toString());
@@ -174,7 +174,7 @@ class PopularFoodDetail extends StatelessWidget {
                   color: AppColor.mainColor,
                 ),
                 child: GestureDetector(
-                  onTap: ()=>popularProduct.addItems(product),
+                  onTap: ()=>popularProduct.addItem(product),
                 child: BigText(
                   text: '\$ ${product.price!} | Add to cart',
                   color: Colors.white,
