@@ -67,9 +67,10 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 );
         }),
         // Dot indicator
+
         GetBuilder<PopularProductController>(builder: (popularProducts) {
           return DotsIndicator(
-            dotsCount: popularProducts.popularProductList.length <= 0
+            dotsCount: popularProducts.popularProductList.isEmpty
                 ? 1
                 : popularProducts.popularProductList.length,
             position: _currPageValue,
@@ -111,7 +112,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           ),
         ),
 
-        //Recommended Food
+        //Recommended Food listView
         GetBuilder<RecommendedProductController>(builder: (recommendedProduct) {
           return recommendedProduct.isLoaded
               ? ListView.builder(
