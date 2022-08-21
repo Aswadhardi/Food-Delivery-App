@@ -17,8 +17,10 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+
         children: [
           Container(
+            width: double.maxFinite,
             margin: EdgeInsets.only(
                 top: Dimensions.height45, bottom: Dimensions.height10),
             padding: EdgeInsets.only(
@@ -30,6 +32,7 @@ class _HomeState extends State<Home> {
                   children: [
                     const BigText(text: 'Ghana'),
                     Row(
+
                       children: const [
                         SmallText(text: 'Kumasi'),
                         Icon(

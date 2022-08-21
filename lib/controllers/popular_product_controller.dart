@@ -47,11 +47,14 @@ class PopularProductController extends GetxController {
   }
 
   int checkQuantity(quantity) {
-    if ((_inCartItems+quantity) < 0) {
+    if ((_inCartItems + quantity) < 0) {
       Get.snackbar('Item count', "You can't reduce more",
           backgroundColor: AppColor.mainColor, colorText: Colors.white);
+      if ((_inCartItems) > 0) {
+        return _quantity = -_inCartItems;
+      }
       return 0;
-    } else if ((_inCartItems+quantity) > 20) {
+    } else if ((_inCartItems + quantity) > 20) {
       Get.snackbar('Item count', "You can't exceed 20",
           backgroundColor: AppColor.mainColor, colorText: Colors.white);
       return 20;
@@ -60,31 +63,32 @@ class PopularProductController extends GetxController {
     }
   }
 
-
   void initProduct(ProductModel product, CartController cart) {
     _quantity = 0;
     _inCartItems = 0;
     _cart = cart;
     var exist = false;
     exist = cart.exitsInCart(product);
-    print('exist is true or not' + exist.toString());
-    if(exist){
+    print('exist is true or not ' + exist.toString());
+    if (exist) {
       _inCartItems = _cart.getQuantity(product);
     }
-    print('the quantity in the cart is '+ _inCartItems.toString());
+    print('the quantity in the cart is ' + _inCartItems.toString());
   }
 
   void addItem(ProductModel product) {
-    if (quantity > 0) {
-      _cart.addItem(product, _quantity);
-      _quantity = 0;
-      _cart.items.forEach((key, value) {
-        return print(
-            '${key.toString()} The id is ${value.id.toString()}and the quantity is  ${value.quantity.toString()}');
-      });
-    } else {
-      Get.snackbar('Item count', 'You should at least add an item',
-          backgroundColor: AppColor.mainColor, colorText: Colors.white);
-    }
+    _cart.addItem(product, _quantity);
+    _quantity = 0;
+    _inCartItems = _cart.getQuantity(product);
+
+    _cart.items.forEach((key, value) {
+      return print(
+          ' The id is ${value.id.toString()} and the quantity is  ${value.quantity.toString()}');
+    });
+    update();
+  }
+
+  int get totalItems {
+    return _cart.totalItems;
   }
 }
