@@ -91,4 +91,8 @@ class PopularProductController extends GetxController {
   int get totalItems {
     return _cart.totalItems;
   }
+  List get getItems{
+    return _cart.getItems;
+  }
+
 }

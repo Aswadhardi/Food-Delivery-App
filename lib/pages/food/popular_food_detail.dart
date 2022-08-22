@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
+import 'package:food_delivery/pages/cart/cart_page.dart';
 import 'package:food_delivery/utils/app_constants.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimension.dart';
@@ -64,11 +65,16 @@ class PopularFoodDetail extends StatelessWidget {
                     builder: (controller) {
                       return Stack(
                         children: [
-                          const AppIcon(
-                            icon: Icons.shopping_cart,
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(()=>const CartPage());
+                            },
+                            child: const AppIcon(
+                              icon: Icons.shopping_cart,
+                            ),
                           ),
                           Get.find<PopularProductController>().totalItems >= 1
-                              ?  Positioned(
+                              ? Positioned(
                                   right: 0,
                                   top: 0,
                                   child: AppIcon(
@@ -83,7 +89,6 @@ class PopularFoodDetail extends StatelessWidget {
                               ? Positioned(
                                   right: 4.8,
                                   top: 3,
-
                                   child: BigText(
                                       size: 12,
                                       color: Colors.white,
@@ -209,11 +214,10 @@ class PopularFoodDetail extends StatelessWidget {
                     borderRadius: BorderRadius.circular(Dimensions.radius20),
                     color: AppColor.mainColor,
                   ),
-                    child: BigText(
-                      text: '\$ ${product.price!} | Add to cart',
-                      color: Colors.white,
-                    ),
-
+                  child: BigText(
+                    text: '\$ ${product.price!} | Add to cart',
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],
